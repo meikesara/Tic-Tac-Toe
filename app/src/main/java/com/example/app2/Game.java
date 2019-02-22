@@ -47,6 +47,7 @@ public class Game {
         int row;
         int column;
 
+        // Check if the game is won by clicking all buttons in a diagonal
         if ((board[0][0] == TileState.CROSS && board[1][1] == TileState.CROSS && board[2][2] == TileState.CROSS) ||
                 (board[2][0] == TileState.CROSS && board[1][1] == TileState.CROSS && board[0][2] == TileState.CROSS)) {
             for (int i = 0; i < BOARD_SIZE; i++)
@@ -61,10 +62,12 @@ public class Game {
             return GameState.PLAYER_TWO;
         }
 
+        // If 9 moves have been played and no one has won the game state is a draw
         if (movesPlayed == 9) {
             return GameState.DRAW;
         }
 
+        // Check for horizontal or vertical wins
         for (int i = 0; i < 3; i++) {
             checkPlayer1row = 0;
             checkPlayer2row = 0;
@@ -96,6 +99,7 @@ public class Game {
                 }
             }
         }
+        // The game is not won by any of the player's or draw
         return GameState.IN_PROGRESS;
     }
 }

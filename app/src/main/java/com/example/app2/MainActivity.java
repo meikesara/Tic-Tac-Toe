@@ -9,25 +9,31 @@ import android.widget.TextView;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
+
+    // Initialise variables
     Game game;
+    Button button1, button2, button3, button4, button5, button6, button7, button8, button9;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Declare variables
         game = new Game();
+        button1 = findViewById(R.id.button1);
+        button2 = findViewById(R.id.button2);
+        button3 = findViewById(R.id.button3);
+        button4 = findViewById(R.id.button4);
+        button5 = findViewById(R.id.button5);
+        button6 = findViewById(R.id.button6);
+        button7 = findViewById(R.id.button7);
+        button8 = findViewById(R.id.button8);
+        button9 = findViewById(R.id.button9);
+        textView = findViewById(R.id.Message);
 
-        Button button1 = findViewById(R.id.button1);
-        Button button2 = findViewById(R.id.button2);
-        Button button3 = findViewById(R.id.button3);
-        Button button4 = findViewById(R.id.button4);
-        Button button5 = findViewById(R.id.button5);
-        Button button6 = findViewById(R.id.button6);
-        Button button7 = findViewById(R.id.button7);
-        Button button8 = findViewById(R.id.button8);
-        Button button9 = findViewById(R.id.button9);
-        TextView textView = findViewById(R.id.Message);
-
+        // If savedInstancestate is not empty get and set the text into the button
         if (savedInstanceState != null) {
             button1.setText(savedInstanceState.getString("button1"));
             button2.setText(savedInstanceState.getString("button2"));
@@ -46,38 +52,16 @@ public class MainActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        Button button1 = findViewById(R.id.button1);
-        Button button2 = findViewById(R.id.button2);
-        Button button3 = findViewById(R.id.button3);
-        Button button4 = findViewById(R.id.button4);
-        Button button5 = findViewById(R.id.button5);
-        Button button6 = findViewById(R.id.button6);
-        Button button7 = findViewById(R.id.button7);
-        Button button8 = findViewById(R.id.button8);
-        Button button9 = findViewById(R.id.button9);
-        TextView textView = findViewById(R.id.Message);
-
-        String TextButton1 = button1.getText().toString();
-        String TextButton2 = button2.getText().toString();
-        String TextButton3 = button3.getText().toString();
-        String TextButton4 = button4.getText().toString();
-        String TextButton5 = button5.getText().toString();
-        String TextButton6 = button6.getText().toString();
-        String TextButton7 = button7.getText().toString();
-        String TextButton8 = button8.getText().toString();
-        String TextButton9 = button9.getText().toString();
-        CharSequence TextTextView = textView.getText();
-
-        outState.putString("button1", TextButton1);
-        outState.putString("button2", TextButton2);
-        outState.putString("button3", TextButton3);
-        outState.putString("button4", TextButton4);
-        outState.putString("button5", TextButton5);
-        outState.putString("button6", TextButton6);
-        outState.putString("button7", TextButton7);
-        outState.putString("button8", TextButton8);
-        outState.putString("button9", TextButton9);
-        outState.putCharSequence("TextView", TextTextView);
+        outState.putString("button1", button1.getText().toString());
+        outState.putString("button2", button2.getText().toString());
+        outState.putString("button3", button3.getText().toString());
+        outState.putString("button4", button4.getText().toString());
+        outState.putString("button5", button5.getText().toString());
+        outState.putString("button6", button6.getText().toString());
+        outState.putString("button7", button7.getText().toString());
+        outState.putString("button8", button8.getText().toString());
+        outState.putString("button9", button9.getText().toString());
+        outState.putCharSequence("TextView", textView.getText());
     }
 
     public void tileClicked(View view) {
@@ -85,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         int row = 0;
         int column = 0;
 
+        // Change the row and column depending on the button that was clicked
         switch(id) {
             case (R.id.button1):
                 row = 0;
@@ -124,10 +109,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+        // Get the state of the current button
         TileState state = game.choose(row, column);
+
+        // Get current button
         Button button = (Button) view;
+
         GameState gamestate;
 
+        // Change the text in the button depending on the state
         switch(state) {
             case CROSS:
                 button.setText("X");
@@ -138,8 +128,11 @@ public class MainActivity extends AppCompatActivity {
             case INVALID:
                 break;
         }
+
+        // Declare the game-state
         gamestate = game.won();
 
+        // Change the text in the textview depending on the game state
         if (gamestate == GameState.PLAYER_ONE || gamestate == GameState.PLAYER_TWO || gamestate == GameState.DRAW) {
             TextView textView = findViewById(R.id.Message);
 
@@ -154,18 +147,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void resetClicked(View view) {
+        // Start new game, when 'new game' button is pressed
         game = new Game();
-        Button button1 = findViewById(R.id.button1);
-        Button button2 = findViewById(R.id.button2);
-        Button button3 = findViewById(R.id.button3);
-        Button button4 = findViewById(R.id.button4);
-        Button button5 = findViewById(R.id.button5);
-        Button button6 = findViewById(R.id.button6);
-        Button button7 = findViewById(R.id.button7);
-        Button button8 = findViewById(R.id.button8);
-        Button button9 = findViewById(R.id.button9);
-        TextView textView = findViewById(R.id.Message);
 
+        // Empty the text in all buttons
         button1.setText("");
         button2.setText("");
         button3.setText("");
